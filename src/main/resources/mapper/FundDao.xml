@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.admin.dao.FundDao">
+    <select id="getlistfunds" resultType="com.qf.admin.pojo.po.Fund">
+        select * from jijin
+    </select>
+    <select id="pagefunds" resultType="com.qf.admin.pojo.po.Fund">
+        select * from jijin where cid = #{value}
+    </select>
+    <select id="getfund" resultType="com.qf.admin.pojo.po.Fund">
+        select * from jijin where jid = #{value}
+    </select>
+    <update id="updatefund" parameterType="com.qf.admin.pojo.po.Fund">
+        update jijin set uname=#{uname},details=#{details},percentnian=#{percentnian},percentri=#{percentri},redeem=#{redeem},networth=#{networth},time=#{time},money=#{money},cid=#{cid},scale=#{scale},risk=#{risk},residue=#{residue},timeLimits=#{timeLimits} where jid=#{jid}
+    </update>
+    <delete id="deletefund">
+      delete  from jijin where jid=#{value }
+    </delete>
+    <select id="searchfund" parameterType="java.lang.String" resultType="com.qf.admin.pojo.po.Fund">
+         select * from jijin where  uname like '%${value}%'
+--         select * from jijin where jid like '%${value}%' and uname like '%${value}%'
+    </select>
+    <insert id="addjijin" parameterType="com.qf.admin.pojo.po.Fund">
+        insert into jijin values (#{jid},#{uname},#{details},#{percentnian},#{percentri},#{redeem},#{networth},#{time},#{money},#{cid},#{scale},#{risk},#{residue},#{timeLimits})
+    </insert>
+    <select id="countfund" resultType="int">
+        select count(*) from jijin
+    </select>
+    <select id="showfund" parameterType="com.qf.admin.pojo.vo.PageInfo" resultType="com.qf.admin.pojo.po.Fund">
+        select * from jijin limit #{offset},#{pagesize}
+    </select>
+</mapper>
